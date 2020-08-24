@@ -55,5 +55,10 @@ Since the Teensy's UART output lacks sufficient oomph (that's a technical term) 
 
 Here's how it looks on a solderless breadboard:
 
+![WART Layout](https://github.com/rdpoor/WART/blob/master/images/IMG_0560.JPG "WART Layout")
+
 And here's a closeup showing the resistor and transistor drive circuitry:
+
+![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0562.JPG WART Closeup")
+
 
