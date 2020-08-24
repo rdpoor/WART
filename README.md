@@ -1,11 +1,22 @@
 # WART
 WART Audio: Play encoded .WAV files with just a UART and a speaker
 
+Question: Since a UART can only generate ones and zeros (or high and low voltages), how can you use it to play audio?
+
+Answer: Use the UART as a pulse width modulator.
+
 ## Short Form:
 
-WART Audio uses a UART as a simple Pulse Width Modulator (PWM).  Sending a stream of 0x00 bytes, you get a 10% duty cycle (because the stop bit is always true).  Similarly, a stream of 0xff bytes gets you a 90% duty cycle (because the start bit is always false).  Overall, you can use the UART to generate nine different levels of PWM.  After you put its output through a low-pass filter, this is equivalent to a 3.17 bit DAC -- not high-fidelity by any means, but even the smallest microcontoller can use this approach to play passable audio.
+WART Audio uses a UART as a simple Pulse Width Modulator (PWM).  Sending a stream of 0x00 bytes, you get a 10% duty cycle (because the stop bit is always true).  Similarly, a stream of 0xff bytes gets you a 90% duty cycle (because the start bit is always false).  Overall, you can use the UART to generate nine different levels of PWM.  After you put its output through a low-pass filter, this is equivalent to a 3.17 bit DAC -- not high-fidelity by any means, but even the simplest microcontoller can use this approach to play passable audio.
 
 The script [wart.py](https://github.com/rdpoor/WART/blob/master/wart.py) converts a .wav file into a C-formatted byte array that you incorporated into your microcontroller code.  Just a few lines of code are enough to play the array out of the serial port, which you connect to a speaker with an appropriate driver and -- voila -- you get audio.
+
+## Using a UART to generate PWM
+
+This graphic shows how you can use an ordinary UART to generate Pulse Width Modulated signals.  The UART is configured for standard `8-n-1` encoding, meaning that each transmitted byte begins with one start bit (always low), followed by eight data bits (least significant bit transmitted first), and ending with one stop bit (always high).  
+
+![WART Encoding](https://github.com/rdpoor/WART/blob/master/images/WART2.png "WART Encoding")
+
 
 ## wart.h
 The output of the python script is a C-compliant `wart.h` file that looks something like this:
@@ -37,7 +48,7 @@ The following sketch is all that's needed to play a WART-encoded file.  Note tha
 #include "wart.h"
 
 void setup() {
-  Serial1.begin(115200); // User Serial1 TXD for PWM output
+  Serial1.begin(115200); // Use Serial1 TXD for PWM output
   while (!Serial1) {
     ; // wait for serial port to connect.
   }
@@ -60,3 +71,37 @@ Here's how it looks on a solderless breadboard:
 And here's a closeup showing the resistor and transistor drive circuitry:
 
 ![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0573.JPG "WART Closeup")
+
+## To create your own WART audio system
+
+The following steps assume that you're using the Arduino application and a Teensy 3.2, but the general concepts should work with just about any IDE and processor.
+
+### Assemble the hardware
+
+In our example, we used a Teensy 3.2 board, but WART Audio will work with just about any microcontroller.  The only requirements are:
+- it must have enough program space to hold the sample array
+- it must have a UART capable of 115200 baud rate
+- its serial driver must be capable of writing bytes to the UART without interruption
+
+Using the schematic shown above as a guide, build the speaker driver.  It requires one 10K resistor, a general purpose NPN transistor and 5V source.
+
+### Prepare the firmware
+
+Assuming that you're using the Arduino application, create a new sketch with [the code listed above](https://github.com/rdpoor/WART/blob/master/wart.ino).
+
+### Prepare your audio file
+
+Use Audacity or sox or your favorite audio tool to create a file with the following properties:
+- Number of Channels:1 (Mono)
+- Sampling Rate: 11520
+- Encoding: .WAV 8 bit unsigned
+
+The following steps assume the resulting file is named `my_sound.wav`, but of
+course you can name it whatever you like.
+
+### Convert the file
+
+- [Download the wart.py python script](https://github.com/rdpoor/WART/blob/master/wart.py) from the github repository.
+- In a shell script, invoke `python wart.py -i <path_to_my_sound>/my_sound.wav` -o wart.wav
+
+This will create wart.wav in the current directory.
