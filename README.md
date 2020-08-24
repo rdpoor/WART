@@ -52,3 +52,8 @@ void loop() {
 Since the Teensy's UART output lacks sufficient oomph (that's a technical term) to power a speaker, a simple transitor driver will do the job.  There are many more sophisticated approaches you could take (use an H bridge to double the effective power, use a real low-pass filter), but this simplistic approach is in keeping with the quick and simple WART philosophy.
 
 ![WART Schematic](https://github.com/rdpoor/WART/blob/master/images/WART.png "WART Schematic")
+
+Here's how it looks on a solderless breadboard:
+
+And here's a closeup showing the resistor and transistor drive circuitry:
+
