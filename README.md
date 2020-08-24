@@ -59,6 +59,6 @@ Here's how it looks on a solderless breadboard:
 
 And here's a closeup showing the resistor and transistor drive circuitry:
 
-![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0562.JPG WART Closeup")
+![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0562.JPG "WART Closeup")
 
 
