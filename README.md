@@ -7,7 +7,7 @@ WART Audio uses a UART as a simple Pulse Width Modulator (PWM).  Sending a strea
 
 The script [wart.py](https://github.com/rdpoor/WART/blob/master/wart.py) converts a .wav file into a C-formatted byte array that you incorporated into your microcontroller code.  Just a few lines of code are enough to play the array out of the serial port, which you connect to a speaker with an appropriate driver and -- voila -- you get audio.
 
-## wart.h 
+## wart.h
 The output of the python script is a C-compliant `wart.h` file that looks something like this:
 
 ```c
@@ -49,16 +49,14 @@ void loop() {
 ```
 
 ## The Teensy 3.2 Schematic
-Since the Teensy's UART output lacks sufficient oomph (that's a technical term) to power a speaker, a simple transitor driver will do the job.  There are many more sophisticated approaches you could take (use an H bridge to double the effective power, use a real low-pass filter), but this simplistic approach is in keeping with the quick and simple WART philosophy.
+Since the Teensy's UART output lacks sufficient oomph (that's a technical term) to power a speaker, a simple transistor driver will do the job.  There are many more sophisticated approaches you could take (use an H bridge to double the effective power, use a real low-pass filter), but this simplistic approach is in keeping with WART's "quick and easy" philosophy.
 
 ![WART Schematic](https://github.com/rdpoor/WART/blob/master/images/WART.png "WART Schematic")
 
 Here's how it looks on a solderless breadboard:
 
-![WART Layout](https://github.com/rdpoor/WART/blob/master/images/IMG_0560.JPG "WART Layout")
+![WART Layout](https://github.com/rdpoor/WART/blob/master/images/IMG_0551.JPG "WART Layout")
 
 And here's a closeup showing the resistor and transistor drive circuitry:
 
-![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0562.JPG "WART Closeup")
-
-
+![WART Closeup](https://github.com/rdpoor/WART/blob/master/images/IMG_0573.JPG "WART Closeup")

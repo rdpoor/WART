@@ -16,7 +16,7 @@
 #   -i <infile>  default wart.wav
 #   -o <outfile> default wart.h
 #
-# Note 1: As written, the input file MUST be 8 bit unsigned, mono channel.
+# Note 1: The input file MUST be 8 bit unsigned, mono channel.
 # Note 2: The output file is designed to be output with a buad rate that is 10x
 #         the sample rate of the input file.  For example, if the input file has
 #         a sample rate of 11520 Hz, the UART should be configured for 115200
