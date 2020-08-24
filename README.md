@@ -28,3 +28,22 @@ const uint8_t wart[] = {
 #endif // #ifndef _WART_H_
 ```
 
+## Arduino Sketch
+
+The following sketch is all that's needed to play a WART-encoded file.  Note that in this case, we're using the `Serial1` object whose transmit data appears on pin 3 of the Teensy 3.2 board.  (The regular `Serial` object outputs over the USB connection.)
+
+```c
+// file: wart.ino
+#include "wart.h"
+
+void setup() {
+  Serial1.begin(115200); // User Serial1 TXD for PWM output
+  while (!Serial1) {
+    ; // wait for serial port to connect.
+  }
+}
+
+void loop() {
+  Serial1.write(wart, sizeof(wart));
+}
+```
