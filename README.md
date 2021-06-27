@@ -7,9 +7,9 @@ Answer: Use the UART as a pulse width modulator.
 
 ## Short Form:
 
-WART Audio uses a UART as a simple Pulse Width Modulator (PWM).  Sending a stream of 0x00 bytes, you get a 10% duty cycle (because the stop bit is always true).  Similarly, a stream of 0xff bytes gets you a 90% duty cycle (because the start bit is always false).  Overall, you can use the UART to generate nine different levels of PWM.  After you put its output through a low-pass filter, this is equivalent to a 3.17 bit DAC -- not high-fidelity by any means, but even the simplest microcontoller can use this approach to play passable audio.
+WART Audio uses a UART as a simple Pulse Width Modulator (PWM).  Sending a stream of 0x00 bytes, you get a 10% duty cycle because the stop bit is always true.  Similarly, a stream of 0xff bytes gets you a 90% duty cycle because the start bit is always false.  Between those two extremes, you can use the UART to generate nine different levels of PWM.  After you put its output through a low-pass filter, this is equivalent to a 3.17 bit DAC -- not high-fidelity by any means, but even the simplest microcontoller can use this approach to play passable audio.
 
-The script [wart.py](https://github.com/rdpoor/WART/blob/master/wart.py) converts a .wav file into a C-formatted byte array that you incorporated into your microcontroller code.  Just a few lines of code are enough to play the array out of the serial port, which you connect to a speaker with an appropriate driver and -- voila -- you get audio.
+The script [wart.py](https://github.com/rdpoor/WART/blob/master/wart.py) converts a .wav file into a C-formatted byte array that you incorporate into your microcontroller code.  Just a few lines of code are enough to play the array out of the serial port, which you connect to a speaker with an appropriate driver and -- voila -- you get audio.
 
 ## Using a UART to generate PWM
 
@@ -96,12 +96,13 @@ Use Audacity or sox or your favorite audio tool to create a file with the follow
 - Sampling Rate: 11520
 - Encoding: .WAV 8 bit unsigned
 
+For best results, make sure the sound file has been normalized for maximum dynamic range.  (We really need to make the most of the 
 The following steps assume the resulting file is named `my_sound.wav`, but of
 course you can name it whatever you like.
 
 ### Convert the file
 
 - [Download the wart.py python script](https://github.com/rdpoor/WART/blob/master/wart.py) from the github repository.
-- In a shell script, invoke `python wart.py -i <path_to_my_sound>/my_sound.wav` -o wart.wav
+- In a shell script, invoke `python wart.py -i <path_to_my_sound>/my_sound.wav` -o wart.h
 
-This will create wart.wav in the current directory.
+This will create wart.h -- similar to what's shown above -- in the current directory.
