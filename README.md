@@ -96,7 +96,7 @@ Use Audacity or sox or your favorite audio tool to create a file with the follow
 - Sampling Rate: 11520
 - Encoding: .WAV 8 bit unsigned
 
-For best results, make sure the sound file has been normalized for maximum dynamic range.  (We really need to make the most of the 
+For best results, make sure the sound file has been normalized for maximum dynamic range. 
 The following steps assume the resulting file is named `my_sound.wav`, but of
 course you can name it whatever you like.
 
@@ -106,3 +106,9 @@ course you can name it whatever you like.
 - In a shell script, invoke `python wart.py -i <path_to_my_sound>/my_sound.wav` -o wart.h
 
 This will create wart.h -- similar to what's shown above -- in the current directory.
+
+### Build and run the Arduino sketch
+
+Move the `wart.h` file into the same directory as the `wart.ino` sketch.  Then 
+launch the Arduino application, open the `wart.ino` sketch, then compile and run it.
+
