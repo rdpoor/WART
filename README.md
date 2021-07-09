@@ -112,3 +112,8 @@ This will create wart.h -- similar to what's shown above -- in the current direc
 Move the `wart.h` file into the same directory as the `wart.ino` sketch.  Then 
 launch the Arduino application, open the `wart.ino` sketch, then compile and run it.
 
+### Impatient?
+
+Skip the steps about preparing and converting an audio file, and use the `wart.h` file
+already in the project to test your hardware.  Management assumes no responsibility for 
+compaints from your neighbors!
